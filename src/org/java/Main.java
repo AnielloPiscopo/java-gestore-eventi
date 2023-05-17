@@ -7,7 +7,7 @@ import org.java.obj.*;
 import org.java.helper.*;
 
 public class Main {
-	public Main() throws Exception {
+	private Main() throws Exception {
 		run();
 	}
 
@@ -15,7 +15,8 @@ public class Main {
 	private void run() throws Exception {
 		Scanner sc = new Scanner(System.in);
 		Event event = createEvent(sc);
-		manageBookings(event , sc);
+		makeBookings(event , sc);
+		cancelBookings(event , sc);
 		sc.close();
 	}
 	
@@ -48,7 +49,7 @@ public class Main {
 	}
 	
 	
-	private void manageBookings(Event e , Scanner sc) {
+	private void makeBookings(Event e , Scanner sc) {
 		try {
 			System.out.println("Vuoi prenotare per l'evento?");
 			boolean userChoise = sc.nextBoolean();
@@ -69,6 +70,27 @@ public class Main {
 		}catch(Exception err){
 			System.err.println("Errore: " + (err.getMessage() == null ? "Hai inserito un valore non valido" : err.getMessage()));
 		}
+	}
+	
+	private void cancelBookings(Event e , Scanner sc) {
+		try {
+			System.out.println("Vuoi disdire una prenotazione o più?");
+			boolean userChoise = sc.nextBoolean();
+			
+			if(!userChoise) return;
+			
+			sc.nextLine();
+			
+			System.out.println("Quante prenotazioni vuoi disdire?");
+			int bookingsNum = sc.nextInt();
+			Helper.isNumPositive(bookingsNum);
+			
+			for(int i=0 ; i<bookingsNum ; i++) {
+				e.unbookPlace();
+			}
+			
+			System.out.println(e.getBookingsInfo());
+		}catch(Exception err) {}
 	}
 
 
