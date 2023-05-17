@@ -29,7 +29,7 @@ public class EventsProgramm {
 	
 	
 	public List<Event> getEvents() {
-		return !events.isEmpty() ? events : null;
+		return events;
 	}
 	
 	private void setEvents() {
@@ -49,8 +49,8 @@ public class EventsProgramm {
 	}
 	
 	public List<Event> getFilterEvents(LocalDate date) {
-		List <Event> filteredEvents = events.stream().filter(e -> e.getDate().compareTo(LocalDate.now()) == 0).collect(Collectors.toList());
-		return (filteredEvents.isEmpty()) ? null : filteredEvents;
+		List <Event> filteredEvents = getEvents().stream().filter(e -> e.getDate().compareTo(date) == 0).collect(Collectors.toList());
+		return filteredEvents;
 	}
 	
 	public List<Event> getSortedByDateEvents(){
@@ -69,15 +69,15 @@ public class EventsProgramm {
 		
 		for(int i=0 ; i<getSortedByDateEvents().size() ; i++) {
 			Event event = getSortedByDateEvents().get(i);
-			eventInfo += "\n" + event.getEventInfo();
+			eventInfo += "\n" + (i+1) + ")" + event.getMinimalEventInfo();
 		}
 		
 		return eventInfo;
 	}
 	
 	private String getInfo() {
-		return "Titolo: " + getTitle()
-			+ "\nLista Eventi: " + getEventInfo();
+		return "Titolo Programma Eventi: " + getTitle()
+			+ "\nLista Eventi: " + (getEventInfo().isBlank() ? "vuota" : getEventInfo());
 	}
 	
 	

@@ -77,6 +77,10 @@ public class Event {
 			+ "\nData:" + getDate();
 	}
 	
+	protected String getMinimalEventInfo(){
+		return getDate() + " - " + getTitle();
+	}
+	
 	public String getBookingsInfo() {
 		return "Posti prenotati: " + getBookedPlaces()
 			+ "\nPosti disponibili: " + getTotSeats();
