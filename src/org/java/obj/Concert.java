@@ -5,20 +5,21 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Concert extends Event {
-	private LocalTime hours;
+	private LocalTime time;
 	private BigDecimal price;
 
-	public Concert(String title, LocalDate date, int totSeats) throws Exception {
+	public Concert(String title, LocalDate date, int totSeats , LocalTime time , BigDecimal price) throws Exception {
 		super(title, date, totSeats);
-		// TODO Auto-generated constructor stub
+		setTime(time);
+		setPrice(price);
 	}
 
-	public LocalTime getHours() {
-		return hours;
+	public LocalTime getTime() {
+		return time;
 	}
 
-	public void setHours(LocalTime hours) {
-		this.hours = hours;
+	public void setTime(LocalTime time) {
+		this.time = time;
 	}
 
 	public BigDecimal getPrice() {
@@ -33,8 +34,8 @@ public class Concert extends Event {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return super.toString()
-				+ "\nOre: " + getHours()
-				+ "\nPrezzo: " + getPrice() + "$";
+				+ "\nOre: " + getTime()
+				+ "\nPrezzo: " + String.format("%.2f", getPrice()) + "$";
 	}
 	
 	

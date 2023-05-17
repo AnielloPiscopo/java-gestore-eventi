@@ -42,7 +42,7 @@ public class Event {
 		return totSeats;
 	}
 	
-	private void setTotSeats(int totSeats) throws Exception {
+	protected void setTotSeats(int totSeats) throws Exception {
 		Helper.isNumPositive(totSeats);
 		
 		this.totSeats = totSeats;
