@@ -15,25 +15,38 @@ public class Main {
 
 	
 	private void run() throws Exception {
-		Scanner sc = new Scanner(System.in);
-		
-		
-		Event event = createEvent(sc);
-		
-		if(event != null) {
-			makeBookings(event , sc);
-			cancelBookings(event , sc);
-		}
-		
-		Concert concert = createConcert(sc);
-		
-		if(concert != null) {			
-			makeBookings(concert , sc);
-			cancelBookings(concert , sc);
-		}
-		
-		
-		sc.close();
+//		Scanner sc = new Scanner(System.in);
+//		
+//		
+//		Event event = createEvent(sc);
+//		
+//		if(event != null) {
+//			makeBookings(event , sc);
+//			cancelBookings(event , sc);
+//		}
+//		
+//		Concert concert = createConcert(sc);
+//		
+//		if(concert != null) {			
+//			makeBookings(concert , sc);
+//			cancelBookings(concert , sc);
+//		}
+//		
+//		
+//		sc.close();
+		Event e1 = new Event("asd" , LocalDate.of(2024,12,12) , 12);
+		Event e2 = new Event("asdasdasd" , LocalDate.of(2029,12,12) , 12);
+		Event e3 = new Event("aasdasdasdewsd" , LocalDate.of(2027,12,12) , 12);
+		Event e4 = new Event("asdasdc" , LocalDate.of(2028,12,12) , 12);
+		Event e5 = new Event("fasd" , LocalDate.of(2025,12,12) , 12);
+		EventsProgramm ep = new EventsProgramm("asd");
+		ep.addEvent(e1);
+		ep.addEvent(e2);
+		ep.addEvent(e3);
+		ep.addEvent(e4);
+		ep.addEvent(e5);
+		System.out.println(ep);
+		System.out.println(ep.getFilterEvents(LocalDate.of(2024, 12, 11))); 
 	}
 	
 	

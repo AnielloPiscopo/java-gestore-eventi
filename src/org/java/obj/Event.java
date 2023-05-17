@@ -72,7 +72,7 @@ public class Event {
 		totSeats++;
 	}
 	
-	private String getEventInfo() {
+	protected String getEventInfo() {
 		return "Titolo:" + getTitle() 
 			+ "\nData:" + getDate();
 	}
