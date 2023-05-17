@@ -16,41 +16,12 @@ public class Main {
 	
 	private void run() throws Exception {
 		Scanner sc = new Scanner(System.in);
-//		
-//		
-//		Event event = createEvent(sc);
-//		
-//		if(event != null) {
-//			makeBookings(event , sc);
-//			cancelBookings(event , sc);
-//		}
-//		
-//		Concert concert = createConcert(sc);
-//		
-//		if(concert != null) {			
-//			makeBookings(concert , sc);
-//			cancelBookings(concert , sc);
-//		}
-//				
-//		Event e1 = new Event("asd" , LocalDate.of(2024,12,12) , 12);
-//		Event e2 = new Event("asdasdasd" , LocalDate.of(2029,12,12) , 12);
-//		Event e3 = new Event("aasdasdasdewsd" , LocalDate.of(2027,12,12) , 12);
-//		Event e4 = new Event("asdasdc" , LocalDate.of(2028,12,12) , 12);
-//		Event e5 = new Event("fasd" , LocalDate.of(2025,12,12) , 12);
-//		EventsProgramm ep = new EventsProgramm("asd");
-//		ep.addEvent(e1);
-//		ep.addEvent(e2);
-//		ep.addEvent(e3);
-//		ep.addEvent(e4);
-//		ep.addEvent(e5);
-//		System.out.println(ep);
-//		System.out.println(ep.getNumOfEvents()); 
 		
-		EventsProgramm eventsProgramm = createEventProgramm(sc);
+		manageEventProgramm(sc);
 		sc.close();
 	}
 	
-	private EventsProgramm createEventProgramm(Scanner sc) {
+	private void manageEventProgramm(Scanner sc) {
 		EventsProgramm ep = null;
 		
 		try {
@@ -70,28 +41,32 @@ public class Main {
 						+ "\n3)Visualizzare gli eventi;"
 						+ "\n4)Visualizzare il numero degli eventi in programma;"
 						+ "\n5)Svuotare la lista degli eventi;"
-						+ "\n6)Uscire dal programma;");
+						+ "\n6)Gestisci prenotazioni;"
+						+ "\n7)Gestisci cancellazioni;"
+						+ "\n8)Uscire dal programma;");
 				
 				userChoise = sc.nextInt();
 				
 				switch(userChoise) {
-					case 1:
+					case 1:{
 						System.out.println("Vuoi che sia un concerto? ");
 						boolean isAConcert = sc.nextBoolean();
-						Event event = null;
 						
-						event = (isAConcert) ? createConcert(sc) : createEvent(sc);
+						Event event = (isAConcert) ? createConcert(sc) : createEvent(sc);
 						
 						System.out.println("\n-------------------------------------\n");
 						System.out.println(event);
 						System.out.println("\n-------------------------------------\n");
 						
 						ep.addEvent(event);
-						break;
+						break;}
 					case 2:
 						LocalDate date = Helper.getDateFromUserValues(sc);
 						System.out.println("\n-------------------------------------\n");
-						System.out.println(ep.getNumOfEvents()<=0 ? "Non puoi eseguire questa azione perchè la lista è vuota" : ep.getFilterEvents(date));
+						System.out.println(
+								ep.getNumOfEvents()<=0 
+								? "Non puoi eseguire questa azione perchè la lista è vuota" 
+								: ep.getFilterEvents(date));
 						System.out.println("\n-------------------------------------\n");
 						break;
 					case 3:
@@ -106,19 +81,37 @@ public class Main {
 						ep.deleteEvents();
 						if(ep.getNumOfEvents()<=0) System.out.println("La lista è già vuota");
 						break;
-					case 6:
+					case 6:{
+						if(ep.getNumOfEvents()>0) {
+							System.out.println("Scegli l'evento di cui ti vuoi occupare");
+							int eventNum = sc.nextInt();
+							Event event = ep.getEvents().get(eventNum-1);
+							makeBookings(event, sc);
+						}else {
+							System.out.println("Non puoi eseguire questa azione perchè la lista è vuota");
+						}
+						break;}
+					case 7:{
+						if(ep.getNumOfEvents()>0) {
+							System.out.println("Scegli l'evento di cui ti vuoi occupare");
+							int eventNum = sc.nextInt();
+							Event event = ep.getEvents().get(eventNum-1);
+							cancelBookings(event, sc);
+						}else {
+							System.out.println("Non puoi eseguire questa azione perchè la lista è vuota");
+						}
+						break;}
+					case 8:
 						System.out.println("Sei uscito dal programma");
 						break;
 					default:
 						System.out.println("Valore non disponibile tra le opzioni");
 						break;
 				}
-			}while(userChoise!=6);
+			}while(userChoise!=8);
 		}catch(Exception err) {
 			System.err.println("Errore nella creazione del programma di eventi: " + (err.getMessage() == null ? "Hai inserito un valore non valido" : err.getMessage()));
 		}
-		
-		return ep;
 	}
 	
 	
@@ -220,6 +213,5 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		new Main();
 	}
-	
 	
 }
