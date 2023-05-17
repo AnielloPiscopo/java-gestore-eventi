@@ -18,13 +18,15 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		
-//		Event event = createEvent(sc);
-//		if(event != null) {
-//			makeBookings(event , sc);
-//			cancelBookings(event , sc);
-//		}
+		Event event = createEvent(sc);
+		
+		if(event != null) {
+			makeBookings(event , sc);
+			cancelBookings(event , sc);
+		}
 		
 		Concert concert = createConcert(sc);
+		
 		if(concert != null) {			
 			makeBookings(concert , sc);
 			cancelBookings(concert , sc);
