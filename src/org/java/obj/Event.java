@@ -2,18 +2,20 @@ package org.java.obj;
 
 import java.time.LocalDate;
 
+import org.java.helper.*;
+
 public class Event {
 	private String title;
 	private LocalDate date;
-	private int totPlaces;
-	private static int bookedPlaces = 0;
+	private int totSeats;
+	private static int bookedSeats = 0;
 	
 	
 	
-	public Event(String title, LocalDate date, int totPlaces) throws Exception {
+	public Event(String title, LocalDate date, int totSeats) throws Exception {
 		setTitle(title);
 		setDate(date);
-		setTotPlaces(totPlaces);
+		setTotSeats(totSeats);
 	}
 
 
@@ -31,52 +33,59 @@ public class Event {
 	}
 	
 	public void setDate(LocalDate date) throws Exception {
-		isDatePassed(date);
+		Helper.isDatePassed(date);
 		this.date = date;
 	}
 	
 	
-	public int getTotPlaces() {
-		return totPlaces;
+	public int getTotSeats() {
+		return totSeats;
 	}
 	
-	private void setTotPlaces(int totPlaces) throws Exception {
-		if(totPlaces <= 0) throw new Exception("Hai inserito un numero negativo per il numero totale di posti dell'evento");
+	private void setTotSeats(int totSeats) throws Exception {
+		Helper.isNumPositive(totSeats);
 		
-		this.totPlaces = totPlaces;
+		this.totSeats = totSeats;
 	}
 	
 	public int getBookedPlaces() {
-		return bookedPlaces;
+		return bookedSeats;
 	}
 	
 	
 	
 	public void bookPlace() throws Exception {
-		isDatePassed(date);
+		Helper.isDatePassed(date);
 		
-		if(totPlaces<=0) throw new Exception("Non ci sono posti disponibili");
+		if(totSeats<=0) throw new Exception("Non ci sono posti disponibili");
 		
-		bookedPlaces++;
+		bookedSeats++;
+		totSeats--;
 	}
 	
 	public void unbookPlace() throws Exception {
-		isDatePassed(date);
+		Helper.isDatePassed(date);
 		
-		if(bookedPlaces<=0) throw new Exception("Non ci sono posti prenotati");
+		if(bookedSeats<=0) throw new Exception("Non ci sono posti prenotati");
 		
-		bookedPlaces--;
+		bookedSeats--;
+		totSeats++;
 	}
 	
-	public void isDatePassed(LocalDate d) throws Exception {
-		if(d.compareTo(LocalDate.now())<0) throw new Exception("La data già è passata");
+	private String getEventInfo() {
+		return "Titolo:" + getTitle() 
+			+ "\nData:" + getDate();
+	}
+	
+	public String getBookingsInfo() {
+		return "Posti prenotati: " + getBookedPlaces()
+			+ "\nPosti disponibili: " + getTotSeats();
 	}
 
 
 	@Override
 	public String toString() {
-		return "Titolo:" + getTitle() 
-				+ "\nData:" + getDate();
+		return getEventInfo();
 	}
 	
 }
